@@ -1,0 +1,126 @@
+//---------------------------------------------------------
+// File--------main.cpp
+// Programmer--Sabera Daqiq
+//
+// This program computes the average time a person waits in a queue 
+//---------------------------------------------------------
+#include <iostream>
+#include <string>
+#include <queue>
+#include <stdlib.h>
+#include "myfunc.h"
+using namespace std;
+//-------------------------------------------------------------------------
+//Queue::Queue()
+//This is a constractor
+// Input parameters:
+//    None
+// Output parameters:
+//    None
+// Return value:
+//    None
+//-------------------------------------------------------------------------
+
+Queue::Queue(){
+	front=NULL;
+	back=NULL;
+	size=0;
+}
+//-------------------------------------------------------------------------
+//Queue::~Queue()
+//This is a destractor
+// Input parameters:
+//    None
+// Output parameters:
+//    None
+// Return value:
+//    None
+//-------------------------------------------------------------------------
+Queue::~Queue(){
+	Node*ptr;
+	while(front!=NULL){
+		ptr=front;
+		front=front->link;
+		delete ptr;
+		}
+	return;
+}
+//-------------------------------------------------------------------------
+//bool Queue::isEmpty()
+//This function checks if the queue is empty
+// Input parameters:
+//    None
+// Output parameters:
+//    None
+// Return value:
+//    true/false
+//-------------------------------------------------------------------------
+bool Queue::isEmpty(){
+	if(front==NULL)
+		return true;
+		else 
+			return false; 
+}
+//-------------------------------------------------------------------------
+//int Queue::enqueue(int newdata, int time )
+//This function insert ID and time into the queue
+// Input parameters:
+//    Newdata, time
+// Output parameters:
+//    None
+// Return value:
+//    none
+//-------------------------------------------------------------------------
+ int Queue::enqueue(int newdata, int time ){
+	Node *newNode; 
+	newNode = new Node;
+	newNode->id = newdata;
+	newNode->time = time;
+	if(isEmpty()){
+      front = newNode;
+      front->link = NULL;
+      back = front;
+	  }else{
+      back->link = newNode;
+      back = back->link;
+      back->link = NULL;    
+    }
+	size++;
+	return 0;
+ }
+//-------------------------------------------------------------------------
+//int Queue::dequeue (int &id, int &time)
+//This function insert ID and time out of the queue
+// refrence parameters:
+//    Newdata, time
+//    
+// Return value:
+//    none
+//-------------------------------------------------------------------------
+int Queue::dequeue (int &id, int &time){
+	time=0;
+	Node*trash;
+	trash=front;
+	id=front->id;
+	time=front->time;
+	front=front->link;
+	delete trash;
+	size--;
+	if(isEmpty()){
+		cout<<"The queue is Empty";
+		}
+	return 0;
+}
+//-------------------------------------------------------------------------
+//int Queue::getSize()
+//This function gives the size  queue
+// refrence parameters:
+//    None
+//    
+// Return value:
+//    size
+//-------------------------------------------------------------------------
+int Queue::getSize(){
+	return this->size;
+}
+
