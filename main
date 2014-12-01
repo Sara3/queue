@@ -1,0 +1,56 @@
+//---------------------------------------------------------
+// File--------main.cpp
+// Programmer--Sabera Daqiq
+//
+// This program computes the average time a person waits in a queue 
+//---------------------------------------------------------
+#include <iostream>
+#include <ctime>
+#include <queue>
+#include <stdlib.h>
+#include <string>
+#include "myfunc.h"
+using namespace std;
+
+int main(){
+	Queue s;
+	int id=1;
+	int time0;
+	int time1;
+	int time2;
+	int time3;
+	int timeA;
+	time3=0;
+	time2=0;
+	int count=0;
+	char customer;
+
+	cout<<"Customer status (A/D): ";
+	cin>>customer;
+	cout<<endl;
+	while ((customer!='C')&&(customer!='c')){
+		if (customer=='A'||customer=='a'){
+			time0=time(0);
+			s.enqueue (id,time0);
+			cout<<endl;
+			cout<<"Customer ID:  "<<id<<endl;
+			}else if (customer=='D'||customer=='d'&&!s.isEmpty()){
+					time1=time(0);
+					s.dequeue(id, timeA);
+					time2=time1-timeA;
+					cout<<endl;
+					cout<<"This customer with ID "<<id<<" has waited "<<time2<<" seconds "<<endl;
+					count++;
+					time3=time3+time2;
+					}else if (s.isEmpty()){
+							cout<<"The queue is empty  "<<endl;
+							}
+		cout<<endl;
+		cout<<"Customer status (A/D): ";
+		cin>>customer;
+		id++;
+	} 
+	cout<<endl;
+	cout<<"The average time that the customer has waited is "<<time3/count<<" seconds"<<endl; 
+	return 0;
+}
